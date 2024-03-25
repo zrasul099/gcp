@@ -16,6 +16,7 @@ resource "google_container_cluster" "primary" {
   node_config {
     disk_size_gb = var.cluster_disk_size
 }
+  deletion_protection = false
 }
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {
@@ -23,7 +24,7 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
   location   = var.location_tf
   cluster    = google_container_cluster.primary.name
   node_count = var.node_count
-
+ 
   node_config {
     preemptible  = true
     machine_type = var.machine_type
@@ -34,4 +35,6 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
       "https://www.googleapis.com/auth/cloud-platform"
     ]
   }
+  
+
 }
